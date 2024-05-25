@@ -5,4 +5,7 @@ def login(request):
     return render(request, 'login.html')
 
 def cadastro(request):
-    return render(request, 'cadastro.html')
+    if request.method == "GET":
+        return render(request, 'cadastro.html')
+    else:
+        pass
