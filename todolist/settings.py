@@ -136,6 +136,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     'tasks/static/',
     'login/static/',
+    'static/',
 )
 
 # Default primary key field type

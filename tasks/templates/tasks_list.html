@@ -8,6 +8,8 @@
 {% block 'title' %}Lista de tarefas{% endblock 'title' %}
 
 {% block 'content' %}
+
+<!--
 <div class="d-flex justify-content-center align-items-center" style="height:10%;width:100%;padding:0px;">
     <div class="d-flex justify-content-center align-items-center" style="height:100%;">
         <button id="button-menu" class="rounded-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -19,7 +21,61 @@
         </button>
     </div>
     <h2 class="container d-flex justify-content-center align-items-center rounded-4 text-secondary" 
-    style="width:100%;height:90%;border:solid black;box-shadow: inset 0px 0px 10px black;margin:0px;">{% block 'h2' %}Lista de tarefas{% endblock 'h2' %}</h2>
+    style="width:100%;height:90%;border:solid black;box-shadow: inset 0px 0px 10px black;margin:0px;">Lista de tarefas</h2>
+</div>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background-color:lightgray;">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <nav id='menu'>
+        <ul id="menu-content">
+            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'tasks_list' %}" class="link-menu">Lista de Tarefas</a></li>
+            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'tasks_completed' %}" class="link-menu">Tarefas Concluídas</a></li>
+            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Perfil do Usuário</a></li>
+            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Configurações</a></li>
+            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Ajuda</a></li>
+            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'account_logout' %}" class="link-menu">Logout</a></li>
+        </ul>
+    </nav>
+</div>
+-->
+
+<div class="d-flex justify-content-center align-items-center" style="height:10%;width:100%;padding:0px;">
+    <div class="d-flex justify-content-center align-items-center" role="group" id="menu"
+     style="height:100%;">
+        <button id="button-menu" type="button" class="btn dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="span1"></span>
+            <span id="span0"></span>
+            <span id="span2"></span>
+            <span id="span0"></span>
+            <span id="span3"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li class="items list-group-item">
+                <a class="dropdown-item" href="{% url 'tasks_list' %}" class="link-menu">Lista de Tarefas</a>
+            </li>
+            <li class="items list-group-item">
+                <a class="dropdown-item" href="{% url 'tasks_completed' %}" class="link-menu">Tarefas Concluídas</a>
+            </li>
+            <li class="items list-group-item">
+                <a class="dropdown-item" href="" class="link-menu">Perfil do Usuário</a>
+            </li>
+            <li class="items list-group-item">
+                <a class="dropdown-item" href="" class="link-menu">Configurações</a>
+            </li>
+            <li class="items list-group-item">
+                <a class="dropdown-item" href="" class="link-menu">Ajuda</a>
+            </li>
+            <li class="items list-group-item">
+                <a class="dropdown-item" href="{% url 'account_logout' %}" class="link-menu">Sair</a>
+            </li>
+        </ul>
+    </div>
+    <h2 class="container d-flex justify-content-center align-items-center rounded-4 text-secondary" 
+        style="width:100%;height:90%;border:solid black;box-shadow: inset 0px 0px 10px black;margin:0px;">{% block 'h2' %}Lista de tarefas{% endblock 'h2' %}</h2>
 </div>
 
 <div class="rounded-3 scroll" style="height:80%;background-color:white;">
@@ -55,10 +111,18 @@
     <div class="container d-flex justify-content-center align-items-center">
         {% block 'novo' %}
         <input value="Novo" id="novo" type="submit" class="btn btn-secondary" 
-        style="height:100%;width: 60%;margin 10px;box-shadow: inset 0px 0px 10px black;" 
+        style="height:100%;width: 60%;margin:10px;box-shadow: inset 0px 0px 10px black;" 
         data-bs-toggle="modal" data-bs-target="#exampleModal">
         {% endblock 'novo' %}
     </div>
+    {% if messages %}
+        <div id="msg" class="alert-dark rounded-3" role="alert" style="position:absolute;width:90%;height:auto;padding:5px;background-color:gray;color:white;">
+            <strong>Mensagens:</strong>
+            <ul>
+                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
     {% block 'modal' %}
     <div class="modal fade" style="backdrop-filter: blur( 3px );" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,22 +159,4 @@
     </div>
 </div>
 {% endif %}
-
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background-color:lightgray;">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <nav id='menu'>
-        <ul id="menu-content">
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'tasks_list' %}" class="link-menu">Lista de Tarefas</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'tasks_completed' %}" class="link-menu">Tarefas Concluídas</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Perfil do Usuário</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Configurações</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Ajuda</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Logout</a></li>
-        </ul>
-    </nav>
-  </div>
-
 {% endblock 'content' %}

@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect
 from .models import Tasks
 from .forms import TaskForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def tasks_list(request):
     if (request.method == 'GET'):
         tasks = Tasks.objects.filter(completed=False)
-        return render(request, 'tasks_list.html', { 'tasks':tasks })
+        if request.path == "/accounts/profile/":
+            request.path = ""
+            print(request.path)
+            return redirect('tasks_list')
+        else:
+            return render(request, 'tasks_list.html', { 'tasks':tasks })
     else:
         tasks = Tasks.objects.filter(completed=False)
         selecionado = request.POST.get("selecionado")
@@ -20,6 +27,7 @@ def tasks_list(request):
             msg = 'Tarefa excluida!'
             return render(request, 'tasks_list.html', {'tasks':tasks, 'msg':msg})
 
+@login_required
 def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -28,7 +36,8 @@ def add_task(request):
             return redirect('tasks_list')
     else:
         return redirect(tasks_list)
-
+    
+@login_required
 def tasks_completed(request):
     if request.method == 'GET':
         tasks = Tasks.objects.filter(completed=True)

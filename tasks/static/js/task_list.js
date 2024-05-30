@@ -47,18 +47,3 @@ function selecionado(id, tela) {
         }
     }
 }
-
-function sleep(ms) {
-    return new Promise(
-      resolve => setTimeout(resolve, ms)
-    );
-}
-
-window.onload = async function() {
-    if (document.getElementById('alert') != null) {
-        await sleep(2000)
-        document.getElementById('alert').style.animation = 'alert-out 0.5s'
-        await sleep(500)
-        document.getElementById('alert').style.display = 'none'
-    }
-}
