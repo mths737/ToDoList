@@ -110,7 +110,7 @@
 
     <div class="container d-flex justify-content-center align-items-center">
         {% block 'novo' %}
-        <input value="Novo" id="novo" type="submit" class="btn btn-secondary" 
+        <input value="Novo" id="novo" type="submit"
         style="height:100%;width: 60%;margin:10px;box-shadow: inset 0px 0px 10px black;" 
         data-bs-toggle="modal" data-bs-target="#exampleModal">
         {% endblock 'novo' %}
@@ -134,6 +134,7 @@
                 </div>
                 <form action="{% url 'add_task' %}" method="POST" class="container">
                     {% csrf_token %}
+                    <input name="created_by" required type="hidden" value="{{user_id}}" id="selecionado">
                     <input placeholder="Descrição" class="form-control" type="text" id="task_title" name="title" required>
                     <div class="modal-footer justify-content-center">
                         <input style="height:80%;width: 50%;margin 10px;box-shadow: inset 0px 0px 10px black;" type="submit" value="Adicionar" class="btn btn-secondary">

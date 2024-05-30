@@ -14,7 +14,7 @@ h1 {
     color: gray;
 }
 
-button[type="submit"] {
+button[type="submit"], a[id="voltar"], input[value="Novo"] {
     height:100%;
     width: 70%;
     margin: 10px;

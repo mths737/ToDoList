@@ -17,9 +17,14 @@
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
-            {% element button type="submit" %}
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center" style="width:100%;">
+                <a href="{% url 'tasks_list' %}" id="voltar" class="btn btn-secondary">Voltar</a>
+            </div>
+            {% element button type="submit"%}
                 {% trans 'Sign Out' %}
             {% endelement %}
+        </div>
         {% endslot %}
     {% endelement %}
 {% endblock content %}
