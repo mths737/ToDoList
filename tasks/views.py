@@ -14,9 +14,11 @@ def tasks_list(request):
         user = request.user
         user_id = User.objects.get(username=user).id
         tasks = Tasks.objects.filter(completed=False, created_by=user_id)
+        pgn = 'Lista de tarefas'
         context = { 
             'tasks':tasks,
-            'user_id':user_id
+            'user_id':user_id,
+            'pgn':pgn
         }
         if request.path == "/accounts/profile/":
             request.path = ""
@@ -41,7 +43,7 @@ def tasks_list(request):
         except:
             pass
 
-        if request.POST.get("botao") == "concluido":
+        if request.POST.get("botao") == "Concluído":
             if task.completed == False:
                 task.completed = True
                 task.save()
@@ -50,7 +52,7 @@ def tasks_list(request):
                 return render(request, 'tasks_list.html', context)
             else:
                 return render(request, 'tasks_list.html', context)
-        elif request.POST.get("botao") == "excluir":
+        elif request.POST.get("botao") == "Excluir":
             if task:
                 Tasks.delete(task)
                 msg = 'Tarefa excluida!'
@@ -77,9 +79,11 @@ def tasks_completed(request):
         user = request.user
         user_id = User.objects.get(username=user).id
         tasks = Tasks.objects.filter(completed=True, created_by=user_id)
+        pgn = 'Tarefas Concluídas'
         context = { 
             'tasks':tasks,
-            'user_id':user_id
+            'user_id':user_id,
+            'pgn':pgn
         }
         return render(request, 'tasks_completed.html', context)
     else:
@@ -100,7 +104,7 @@ def tasks_completed(request):
         except:
             pass
 
-        if request.POST.get("botao") == "excluir":
+        if request.POST.get("botao") == "Excluir":
             if task:
                 Tasks.delete(task)
                 msg = 'Tarefa excluida!'

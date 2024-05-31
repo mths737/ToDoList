@@ -90,12 +90,28 @@
                 </div>
             </div>
             <div style="height:10%;" class="d-flex justify-content-center align-items-center">
-                {% if messages %}
+                <!--{% if messages %}
                 <div id="msg" class="alert-dark rounded-3" role="alert" style="position:absolute;width:90%;height:auto;padding:5px;background-color:gray;color:white;">
                     <strong>{% trans "Mensagens:" %}</strong>
                     <ul>
                         {% for message in messages %}<li>{{ message }}</li>{% endfor %}
                     </ul>
+                </div>
+                {% endif %}-->
+                {% if messages %}
+                <div id="alert" class="justify-content-center align-items-center" style="position:absolute;height:100%;width:100%;backdrop-filter:blur(3px);top:0px; left:0px;display:flex;transition:0.5s">
+                    <div id="alert-box" class="alert alert-secondary d-block justify-content-center align-items-center" role="alert">
+                        <br>
+                        <br>
+                            {% for message in messages %}
+                            <h3 class="text-center">{{ message }}</h3>
+                            {% endfor %}
+                        <div class="text-center">
+                            <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% endif %}
             </div>

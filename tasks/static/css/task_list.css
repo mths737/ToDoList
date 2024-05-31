@@ -98,29 +98,3 @@ body {
     background-color: white;
 }
 */
-
-@keyframes alert-in {
-    from {
-        filter: opacity(0%);
-    }
-}
-
-@keyframes alert-out {
-    from {
-        filter: opacity(100%);
-    }
-    to {
-        filter: opacity(0%);
-    }
-}
-
-#alert {
-    animation: alert-in 0.5s;
-}
-
-#alert-box {
-    height:20%;
-    width:70%;
-    border-radius:10px;
-    box-shadow: inset 0px 0px 10px rgb(255, 255, 255), 0px 0px 10px rgb(0, 0, 0);
-}

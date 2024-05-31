@@ -55,10 +55,12 @@
         </button>
         <ul class="dropdown-menu">
             <li class="items list-group-item">
-                <a class="dropdown-item" href="{% url 'tasks_list' %}" class="link-menu">Lista de Tarefas</a>
+                <a class="dropdown-item" href="{% url 'tasks_list' %}" class="link-menu" 
+                {% if pgn == 'Lista de tarefas' %}id='pgn'{% endif %}>Lista de Tarefas</a>
             </li>
             <li class="items list-group-item">
-                <a class="dropdown-item" href="{% url 'tasks_completed' %}" class="link-menu">Tarefas Concluídas</a>
+                <a class="dropdown-item" href="{% url 'tasks_completed' %}" class="link-menu"
+                {% if pgn == 'Tarefas Concluídas' %}id='pgn'{% endif %}>Tarefas Concluídas</a>
             </li>
             <li class="items list-group-item">
                 <a class="dropdown-item" href="" class="link-menu">Perfil do Usuário</a>
@@ -99,10 +101,10 @@
             {% csrf_token %}
             <input name="selecionado" type="hidden" value="" id="selecionado">
             <div class="container d-flex justify-content-center align-items-center" style="height:100%;width: 50%;">
-                <input name="botao" type='submit' value="concluido" id="concluido" class="btn btn-success" style="height:80%;width: 80%;margin 10px;display:none;box-shadow: inset 0px 0px 10px black;">
+                <input name="botao" type='submit' value="Concluído" id="concluido" class="btn" style="height:80%;width: 80%;margin 10px;display:none;background-color:green;">
             </div>
             <div class="container d-flex justify-content-center align-items-center" style="height:100%;width: 50%;">
-                <input name="botao" type='submit' value="excluir" id="excluir" class="btn btn-danger" style="height:80%;width: 80%;margin 10px;display:none;box-shadow: inset 0px 0px 10px black;">
+                <input name="botao" type='submit' value="Excluir" id="excluir" class="btn" style="height:80%;width: 80%;margin 10px;display:none;background-color:red;">
             </div>
         </form>
         {% endblock 'selected-form' %}
@@ -111,18 +113,9 @@
     <div class="container d-flex justify-content-center align-items-center">
         {% block 'novo' %}
         <input value="Novo" id="novo" type="submit"
-        style="height:100%;width: 60%;margin:10px;box-shadow: inset 0px 0px 10px black;" 
         data-bs-toggle="modal" data-bs-target="#exampleModal">
         {% endblock 'novo' %}
     </div>
-    {% if messages %}
-        <div id="msg" class="alert-dark rounded-3" role="alert" style="position:absolute;width:90%;height:auto;padding:5px;background-color:gray;color:white;">
-            <strong>Mensagens:</strong>
-            <ul>
-                {% for message in messages %}<li>{{ message }}</li>{% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 
     {% block 'modal' %}
     <div class="modal fade" style="backdrop-filter: blur( 3px );" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -160,4 +153,22 @@
     </div>
 </div>
 {% endif %}
+
+{% if messages %}
+<div id="alert" class="justify-content-center align-items-center" style="position:absolute;height:100%;width:100%;backdrop-filter:blur(3px);top:0px; left:0px;display:flex;transition:0.5s">
+    <div id="alert-box" class="alert alert-secondary d-block justify-content-center align-items-center" role="alert">
+        <br>
+        <br>
+            {% for message in messages %}
+            <h3 class="text-center">{{ message }}</h3>
+            {% endfor %}
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock 'content' %}
