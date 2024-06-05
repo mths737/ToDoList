@@ -1,13 +1,7 @@
 {% extends "tasks_list.html" %}
 {% load static %}
 
-{% block 'title' %}Tarefas concluídas{% endblock 'title' %}
-
-{% block 'h2' %}Tarefas concluídas{% endblock 'h2' %}
-
-{% block 'tela' %}'tasksCompleted'{% endblock 'tela' %}
-
-{% block 'completed' %}Completo{% endblock 'completed' %}
+{% block 'title' %}{{ pgn }}{% endblock 'title' %}
 
 {% block 'selected-form' %}
     <form action="{% url 'tasks_completed' %}" id="acao-task" method="POST" class="container d-flex justify-content-center align-items-center" style="height:100%;width: 100%;">

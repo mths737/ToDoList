@@ -5,90 +5,21 @@
 <link href="{% static 'css/task_list.css' %}" rel="stylesheet">
 {% endblock head %}
 
-{% block 'title' %}Lista de tarefas{% endblock 'title' %}
+{% block 'title' %}{{ pgn }}{% endblock 'title' %}
 
 {% block 'content' %}
 
-<!--
-<div class="d-flex justify-content-center align-items-center" style="height:10%;width:100%;padding:0px;">
-    <div class="d-flex justify-content-center align-items-center" style="height:100%;">
-        <button id="button-menu" class="rounded-4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-            <span id="span1"></span>
-            <span id="span0"></span>
-            <span id="span2"></span>
-            <span id="span0"></span>
-            <span id="span3"></span>
-        </button>
-    </div>
-    <h2 class="container d-flex justify-content-center align-items-center rounded-4 text-secondary" 
-    style="width:100%;height:90%;border:solid black;box-shadow: inset 0px 0px 10px black;margin:0px;">Lista de tarefas</h2>
-</div>
-
-
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background-color:lightgray;">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <nav id='menu'>
-        <ul id="menu-content">
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'tasks_list' %}" class="link-menu">Lista de Tarefas</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'tasks_completed' %}" class="link-menu">Tarefas Concluídas</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Perfil do Usuário</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Configurações</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="" class="link-menu">Ajuda</a></li>
-            <li class="item-menu list-group-item d-flex align-items-center" aria-current="true"><a href="{% url 'account_logout' %}" class="link-menu">Logout</a></li>
-        </ul>
-    </nav>
-</div>
--->
-
-<div class="d-flex justify-content-center align-items-center" style="height:10%;width:100%;padding:0px;">
-    <div class="d-flex justify-content-center align-items-center" role="group" id="menu"
-     style="height:100%;">
-        <button id="button-menu" type="button" class="btn dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <span id="span1"></span>
-            <span id="span0"></span>
-            <span id="span2"></span>
-            <span id="span0"></span>
-            <span id="span3"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li class="items list-group-item">
-                <a class="dropdown-item" href="{% url 'tasks_list' %}" class="link-menu" 
-                {% if pgn == 'Lista de tarefas' %}id='pgn'{% endif %}>Lista de Tarefas</a>
-            </li>
-            <li class="items list-group-item">
-                <a class="dropdown-item" href="{% url 'tasks_completed' %}" class="link-menu"
-                {% if pgn == 'Tarefas Concluídas' %}id='pgn'{% endif %}>Tarefas Concluídas</a>
-            </li>
-            <li class="items list-group-item">
-                <a class="dropdown-item" href="" class="link-menu">Perfil do Usuário</a>
-            </li>
-            <li class="items list-group-item">
-                <a class="dropdown-item" href="" class="link-menu">Configurações</a>
-            </li>
-            <li class="items list-group-item">
-                <a class="dropdown-item" href="" class="link-menu">Ajuda</a>
-            </li>
-            <li class="items list-group-item">
-                <a class="dropdown-item" href="{% url 'account_logout' %}" class="link-menu">Sair</a>
-            </li>
-        </ul>
-    </div>
-    <h2 class="container d-flex justify-content-center align-items-center rounded-4 text-secondary" 
-        style="width:100%;height:90%;border:solid black;box-shadow: inset 0px 0px 10px black;margin:0px;">{% block 'h2' %}Lista de tarefas{% endblock 'h2' %}</h2>
-</div>
+{% include "menu.html" %}
 
 <div class="rounded-3 scroll" style="height:80%;background-color:white;">
     <ul class="list-group">
         {% for task in tasks %}
-                <li id="{{task.id}}" class="item list-group-item" onclick="selecionado({{task.id}}, {% block 'tela' %}'tasksList'{% endblock 'tela' %})" aria-current="true">
+                <li id="{{task.id}}" class="item list-group-item" onclick="selecionado({{task.id}},'{{pgn}}')" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
                       <p class="mb-1" style="font-weight: bold;">{{ task.title }}</p>
                       <small>{{ task.created_at }}</small>
                     </div>
-                    <small>{% block 'completed' %}Incompleto{% endblock 'completed' %}</small>
+                    <small>{% if task.completed == True %}Completo{% else %}Incompleto{% endif %}</small>
                 </li>
         {% endfor %}
     </ul>
@@ -130,7 +61,7 @@
                     <input name="created_by" required type="hidden" value="{{user_id}}" id="selecionado">
                     <input placeholder="Descrição" class="form-control" type="text" id="task_title" name="title" required>
                     <div class="modal-footer justify-content-center">
-                        <input style="height:80%;width: 50%;margin 10px;box-shadow: inset 0px 0px 10px black;" type="submit" value="Adicionar" class="btn btn-secondary">
+                        <input style="height:80%;width: 50%;margin 10px;" type="submit" value="Adicionar" class="btn">
                     </div>
                 </form>
             </div>
@@ -139,36 +70,8 @@
     {% endblock 'modal' %}
 </div>
 
-{% if msg %}
-<div id="alert" class="justify-content-center align-items-center" style="position:absolute;height:100%;width:100%;backdrop-filter:blur(3px);top:0px; left:0px;display:flex;transition:0.5s">
-    <div id="alert-box" class="alert alert-secondary d-block justify-content-center align-items-center" role="alert">
-        <br>
-        <br>
-        <h2 class="text-center">{{ msg }}</h2>
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-{% if messages %}
-<div id="alert" class="justify-content-center align-items-center" style="position:absolute;height:100%;width:100%;backdrop-filter:blur(3px);top:0px; left:0px;display:flex;transition:0.5s">
-    <div id="alert-box" class="alert alert-secondary d-block justify-content-center align-items-center" role="alert">
-        <br>
-        <br>
-            {% for message in messages %}
-            <h3 class="text-center">{{ message }}</h3>
-            {% endfor %}
-        <div class="text-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
+{% if msg or messages %}
+{% include "alert.html" %}
 {% endif %}
 
 {% endblock 'content' %}

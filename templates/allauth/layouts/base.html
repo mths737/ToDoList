@@ -22,7 +22,7 @@
                 {% block body %}
                     <div class="d-flex justify-content-center align-items-center" role="group" id="menu"
                     style="height:100%;">
-                        <button id="button-menu" type="button" class="btn dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button id="button-menu" type="button" class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <span id="span1"></span>
                             <span id="span0"></span>
                             <span id="span2"></span>
@@ -98,21 +98,8 @@
                     </ul>
                 </div>
                 {% endif %}-->
-                {% if messages %}
-                <div id="alert" class="justify-content-center align-items-center" style="position:absolute;height:100%;width:100%;backdrop-filter:blur(3px);top:0px; left:0px;display:flex;transition:0.5s">
-                    <div id="alert-box" class="alert alert-secondary d-block justify-content-center align-items-center" role="alert">
-                        <br>
-                        <br>
-                            {% for message in messages %}
-                            <h3 class="text-center">{{ message }}</h3>
-                            {% endfor %}
-                        <div class="text-center">
-                            <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% if msg or messages %}
+                    {% include "alert.html" %}
                 {% endif %}
             </div>
             {% block extra_body %}

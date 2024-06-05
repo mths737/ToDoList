@@ -29,12 +29,14 @@ def tasks_list(request):
         user = request.user
         user_id = User.objects.get(username=user).id
         tasks = Tasks.objects.filter(completed=False, created_by=user_id)
-        msg = ""
         selecionado = request.POST.get("selecionado")
         task = 0
+        pgn = 'Lista de tarefas'
+        msg = ""
         context = { 
             'tasks':tasks,
             'user_id':user_id,
+            'pgn':pgn,
             'msg':msg
         }
 
@@ -92,10 +94,12 @@ def tasks_completed(request):
         tasks = Tasks.objects.filter(completed=True, created_by=user_id)
         selecionado = request.POST.get("selecionado")
         task = 0
+        pgn = 'Tarefas Concluídas'
         msg = ""
         context = { 
             'tasks':tasks,
             'user_id':user_id,
+            'pgn':pgn,
             'msg':msg
         }
 

@@ -1,0 +1,17 @@
+<div id="alert" class="justify-content-center align-items-center" style="position:absolute;height:100%;width:100%;backdrop-filter:blur(3px);top:0px; left:0px;display:flex;transition:0.5s">
+    <div id="alert-box" class="alert alert-secondary d-flex justify-content-center align-items-center" role="alert">
+        {% if messages %}
+            {% for message in messages %}
+            <h3 class="text-center">{{ message }}</h3>
+            {% endfor %}
+        {% endif %}
+        {% if msg %}
+            <h2 class="text-center">{{ msg }}</h2>
+        {% endif %}
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
